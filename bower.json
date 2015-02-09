@@ -1,0 +1,23 @@
+{
+  "name": "uiModalBox",
+  "main": "uiModalBox.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/thetutlage/ui-modal-box",
+  "authors": [
+    "Harminder Virk <virk.officials@gmail.com>"
+  ],
+  "keywords": [
+    "uimodal",
+    "angular-popup",
+    "angular-uimodal",
+    "popup-box"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
