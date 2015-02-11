@@ -54,68 +54,72 @@
 
 	// Showing modal by setting visible to true
 	this.show = function() {
-	    this.visible = true;
+	  this.visible = true;
+	},
+
+	// public method to hide modal
+	this.hide = function() {
+		this.visible = false;
+	},
+
+	// public method to reset modal
+	this.reset = function() {
+		this._reset();
 	},
 
 	// Resetting properties
 	this._reset = function() {
-
 	  this.template = null;
-
-			this.controller = null;
-
-			this.actions = [];
-
-			this.visible = false;
-
-			this.modalData = false;
+		this.controller = null;
+		this.actions = [];
+		this.visible = false;
+		this.modalData = false;
 	}
-	})
-	
-	.directive('uiModalBox',function(uiModalService,$http,$templateCache,$compile){
-		return{
-			restrict: 'AE',
-			replace: true,
-			link: function($scope,$elem,$attr){
+})
+.directive('uiModalBox',function(uiModalService,$http,$templateCache,$compile){
+	return{
+		restrict: 'AE',
+		replace: true,
+		link: function($scope,$elem,$attr){
 
-				// Assigning uiModalSetvice to local $scope
-				$scope.modal = uiModalService;
+			// Assigning uiModalSetvice to local $scope
+			$scope.modal = uiModalService;
 
-				// watch for changes
-				$scope.$watch('modal',function(){
+			// watch for changes
+			$scope.$watch('modal',function(){
 
-					// If template has been provider
-					// then continue with other stuff
-					if($scope.modal.template){
+				// If template has been provider
+				// then continue with other stuff
+				if($scope.modal.template){
 
-						// Grabbing template url
-						var template = $scope.modal.template;
+					// Grabbing template url
+					var template = $scope.modal.template;
 
-						// making http call to get template
-						$http.get(template,{cache:$templateCache})
-						.success(function(response){
+					// making http call to get template
+					$http.get(template,{cache:$templateCache})
+					.success(function(response){
 
-							// Fetching content from response
-							var contents = $elem.html(response).contents();
+						// Fetching content from response
+						var contents = $elem.html(response).contents();
 
-							// If controller is specified
-							if($scope.modal.controller){
+						// If controller is specified
+						if($scope.modal.controller){
 
-								// Assign controller as ng-controller
-								$elem.attr('ng-controller',$scope.modal.controller);
+							// Assign controller as ng-controller
+							$elem.attr('ng-controller',$scope.modal.controller);
 
-							}
+						}
 
-							// Removing attr to stay away from infinite loop
-							$elem.removeAttr('ui-modal-box');
+						// Removing attr to stay away from infinite loop
+						$elem.removeAttr('ui-modal-box');
 
-							// Recompiling directive
-							$compile($elem)($scope);
+						// Recompiling directive
+						$compile($elem)($scope);
 
-						});
-					}
-				},true);
-			}
+					});
+				}
+			},true);
 		}
-	});
+	}
+});
 }).call(this);
